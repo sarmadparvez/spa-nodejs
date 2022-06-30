@@ -54,7 +54,6 @@
     "@angular/platform-browser-dynamic": "~14.0.0",
     "@angular/router": "~14.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
     "express": "4.17.2",
     "randopeep": "^1.1.6",
     "rxjs": "~7.4.0",
