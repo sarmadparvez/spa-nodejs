@@ -57,6 +57,8 @@
     "express": "4.17.2",
     "randopeep": "^1.1.6",
     "rxjs": "~7.4.0",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   }

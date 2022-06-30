@@ -4,15 +4,42 @@ import * as randopeep from 'randopeep';
 import * as config from '../../../config.json';
 
 export class DriverService {
-  repository: DriverRepository;
+  private static instance: DriverService;
 
-  constructor() {
+  private readonly repository: DriverRepository;
+
+  private constructor() {
     this.repository = new DriverRepository();
     this.init();
   }
 
+  public static getInstance(): DriverService {
+    if (!DriverService.instance) {
+      DriverService.instance = new DriverService();
+    }
+    return DriverService.instance;
+  }
+
   public get(): Promise<Driver[]> {
     return this.repository.get();
+  }
+
+  public async updateDriversLocation(): Promise<boolean> {
+    const drivers = await this.repository.get();
+    if (drivers.length === 0) {
+      this.init();
+    }
+    const updatedDrivers = drivers.map((driver) => {
+      driver.location = randopeep.address.geo();
+      return driver;
+    });
+    try {
+      await this.repository.saveDriversAsync(updatedDrivers);
+      return true;
+    } catch (err) {
+      console.error(err);
+    }
+    return false;
   }
 
   private init(): void {

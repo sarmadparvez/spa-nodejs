@@ -1,4 +1,5 @@
 {
   "dataPath": "apps/express/src/app/drivers/data/index.get.json",
-  "driverCount": 20
+  "driverCount": 20,
+  "locationUpdateInterval": 5000
 }

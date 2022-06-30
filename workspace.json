@@ -4,6 +4,7 @@
   "projects": {
     "angular": "apps/angular",
     "express": "apps/express",
-    "model": "libs/model"
+    "model": "libs/model",
+    "socket-events": "libs/socket-events"
   }
 }

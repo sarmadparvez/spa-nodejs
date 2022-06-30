@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `<mat-toolbar color="primary">
+  template: `
+    <mat-toolbar color="primary">
       <!--Title-->
       <h1>{{ title }}</h1>
 
@@ -19,10 +20,16 @@ import { Component } from '@angular/core';
       <span>Sarmad Parvez</span>
       <mat-icon class="toolbar__account">account_circle</mat-icon>
     </mat-toolbar>
-
-    <router-outlet></router-outlet> `,
+    <router-outlet></router-outlet>
+  `,
   styles: [
     `
+      .app-container {
+        /*        height: 100vh;
+        max-height: 100vh;
+        width: 100vw;
+        max-width: 100vw;*/
+      }
       .spacer {
         flex: 1 1 auto;
       }

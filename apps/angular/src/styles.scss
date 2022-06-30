@@ -7,10 +7,11 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  overflow: hidden;
 }
 
 .page-container {
-  padding: 3%;
-  height: calc(100vh - 64px - 28px) !important; // 64px is the toolbar height
+  padding: 1%;
+  height: calc(100vh - 64px - 37px); // 64px is the toolbar height
   overflow: auto;
 }

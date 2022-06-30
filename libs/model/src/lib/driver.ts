@@ -1,9 +1,9 @@
 export interface Driver {
   name: string;
+  gender: Gender;
   cityOrigin: string;
   language: Language;
   phone: string;
-  gender: Gender;
   info: string;
   carMake: string;
   kmDriven: number;

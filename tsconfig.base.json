@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@spa-nodejs/model": ["libs/model/src/index.ts"]
+      "@spa-nodejs/model": ["libs/model/src/index.ts"],
+      "@spa-nodejs/socket-events": ["libs/socket-events/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

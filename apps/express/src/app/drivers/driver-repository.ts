@@ -5,7 +5,12 @@ import * as config from './../../../config.json';
 export class DriverRepository {
   public async get(): Promise<Driver[]> {
     const data = await fs.promises.readFile(config.dataPath, 'utf8');
-    return JSON.parse(data) as Driver[];
+    try {
+      return JSON.parse(data) as Driver[];
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
   }
 
   public saveDriversSync(drivers: Driver[]): void {
