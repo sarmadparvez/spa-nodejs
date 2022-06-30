@@ -40,3 +40,6 @@ testem.log
 Thumbs.db
 
 .angular
+
+# The data is changed everytime application runs. We don't need to track this.
+apps/express/src/app/drivers/data/index.get.json

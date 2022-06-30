@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "angular": "apps/angular",
-    "express": "apps/express"
+    "express": "apps/express",
+    "model": "libs/model"
   }
 }

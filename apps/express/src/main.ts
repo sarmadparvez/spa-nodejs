@@ -9,6 +9,7 @@ import * as fs from 'fs';
 // randopeep is for generating stuff that we can include in our fake data*
 import * as randopeep from 'randopeep';
 import { config } from 'dotenv';
+import { Driver } from '@spa-nodejs/model';
 config();
 
 const app = express();
@@ -56,12 +57,12 @@ function genobj() {
     driverName: randopeep.name(),
     driverCityOrigin: randopeep.address.city(),
     driverLanguage: ['de', 'en', 'nl', 'fr', 'es', 'ar'][
-      Math.floor(Math.random() * 7)
+      Math.floor(Math.random() * 6)
     ],
     driverPhone: randopeep.address.phone(),
     driverGender: ['male', 'female'][Math.floor(Math.random() * 2)],
-    driverInfo: randopeep.corporate.catchPhrase(0),
-    carMake: randopeep.corporate.name('large', 0),
+    driverInfo: randopeep.corporate.catchPhrase(),
+    carMake: randopeep.corporate.name('large'),
     kmDriven: Math.floor(Math.random() * 100000),
     location: randopeep.address.geo(),
   };
