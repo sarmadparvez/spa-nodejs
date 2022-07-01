@@ -36,6 +36,14 @@ socket server to broadcast event to all connected clients whenever data is updat
   <li>Application architecture design</li>
 </ul>
 
+##Demo
+Please visit [this](https://angular-drivers.web.app) for the project demo.
+
+Note: When you will access the demo, the initial data load my take upto 20 seconds. This is because the backend express app is currently deployed on heroku which has a limitation that the service goes to sleep when not
+in use for 30 minutes. Accessing the service wakes it up however the first request can take a longer time because
+service is waking up, but further requests will be served immediately. If you run the applications locally, then you
+will not face this limitation.
+
 ## Running the Applications
 
 This project was generated using [Nx](https://nx.dev). As a pre-requisite to run and build the applications in this monorepo you will need to install Nx cli
@@ -64,9 +72,9 @@ The following REST API(s) are available:
 
 Run `nx build angular` to build the angular project.
 
-Run `nx build express` to build the angular project. Use the `--prod` flag for a production build.
+Run `nx build express` to build the angular project.
 
-The build artifacts will be stored in the `dist/` directory.
+Use the `--prod` flag for a production build. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
