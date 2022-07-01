@@ -20,16 +20,20 @@ import { Component } from '@angular/core';
       <span>Sarmad Parvez</span>
       <mat-icon class="toolbar__account">account_circle</mat-icon>
     </mat-toolbar>
+
+    <mat-progress-spinner
+      class="progress-spinner"
+      color="primary"
+      mode="determinate"
+      diameter="50"
+      [value]="10"
+    >
+    </mat-progress-spinner>
+
     <router-outlet></router-outlet>
   `,
   styles: [
     `
-      .app-container {
-        /*        height: 100vh;
-        max-height: 100vh;
-        width: 100vw;
-        max-width: 100vw;*/
-      }
       .spacer {
         flex: 1 1 auto;
       }
@@ -38,6 +42,11 @@ import { Component } from '@angular/core';
       }
       .toolbar__account {
         margin-left: 10px;
+      }
+      .progress-spinner {
+        position: absolute;
+        right: 2%;
+        top: 90px;
       }
     `,
   ],

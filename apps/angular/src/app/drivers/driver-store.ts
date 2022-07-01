@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DriverStore {
   private getEndpoint = environment.apiBase + '/drivers';
-  private readonly drivers = new ReplaySubject<Driver[]>();
+  private readonly drivers = new ReplaySubject<Driver[]>(1);
 
   private readonly socket: Socket<ServerEvents, Record<string, unknown>>;
 

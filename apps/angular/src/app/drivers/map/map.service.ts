@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 /**
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class MapService {
   private readonly apiKey =
     'QUl6YVN5Q1F4YXgxYnRuQVdQamt5VVBxWVd5WjNEQkZuN3NCRF9n';
-  private readonly apiLoaded = new BehaviorSubject(false);
+  private readonly apiLoaded = new ReplaySubject(1);
   readonly loaded = this.apiLoaded.asObservable();
 
   constructor(httpClient: HttpClient) {

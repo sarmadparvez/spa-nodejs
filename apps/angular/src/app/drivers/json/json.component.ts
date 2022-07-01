@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DriverStore } from '../driver-store';
+import { Observable } from 'rxjs';
+import { Driver } from '@spa-nodejs/model';
 
 @Component({
   selector: 'app-json',
   standalone: true,
   imports: [CommonModule],
-  template: ` <p>json works!</p> `,
+  template: `
+    <div class="page-container">
+      <pre>{{ driverData | async | json }}</pre>
+    </div>
+  `,
   styles: [``],
 })
-export class JSONComponent implements OnInit {
-  constructor() {}
+export class JSONComponent {
+  driverData: Observable<Driver[]>;
 
-  ngOnInit(): void {}
+  constructor(private readonly driverStore: DriverStore) {
+    this.driverData = this.driverStore.watchDrivers();
+  }
 }

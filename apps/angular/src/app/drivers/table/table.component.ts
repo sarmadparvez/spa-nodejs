@@ -1,8 +1,8 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DriverStore } from '../driver-store';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Driver } from '@spa-nodejs/model';
 import { Subscription } from 'rxjs';
@@ -10,21 +10,33 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
   template: `
     <div class="page-container">
       <h1>Drivers</h1>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <p>
+        The data (GPS coordinates column) is refreshed as per the set interval.
+        You can also sort the data in the table by clicking on the column header
+        by name, gender or km driven columns.
+      </p>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+      >
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <!-- Gender Column -->
         <ng-container matColumnDef="gender">
-          <th mat-header-cell *matHeaderCellDef>Gender</th>
-          <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.gender }}
+          </td>
         </ng-container>
 
         <!-- City Origin Column -->
@@ -59,7 +71,7 @@ import { Subscription } from 'rxjs';
 
         <!-- kmDriven Column -->
         <ng-container matColumnDef="kmDriven">
-          <th mat-header-cell *matHeaderCellDef>KM Driven</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>KM Driven</th>
           <td mat-cell *matCellDef="let element">{{ element.kmDriven }}</td>
         </ng-container>
 
@@ -75,9 +87,9 @@ import { Subscription } from 'rxjs';
 
       <mat-paginator
         class="mat-elevation-z8"
-        [pageSizeOptions]="[10, 25, 50, 100]"
+        pageSize="20"
+        [pageSizeOptions]="[10, 20, 50, 100]"
         showFirstLastButtons="true"
-        length="20"
       ></mat-paginator>
     </div>
   `,
@@ -89,15 +101,8 @@ import { Subscription } from 'rxjs';
     `,
   ],
 })
-export class TableComponent implements OnDestroy {
-  constructor(private readonly driverStore: DriverStore) {
-    this.subscriptions.add(
-      this.driverStore.watchDrivers().subscribe((drivers) => {
-        this.dataSource.data = drivers;
-        this.dataSource.paginator = this.paginator;
-      })
-    );
-  }
+export class TableComponent implements AfterViewInit, OnDestroy {
+  constructor(private readonly driverStore: DriverStore) {}
 
   readonly dataSource: MatTableDataSource<Driver> =
     new MatTableDataSource<Driver>();
@@ -116,6 +121,16 @@ export class TableComponent implements OnDestroy {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.subscriptions.add(
+      this.driverStore.watchDrivers().subscribe((drivers) => {
+        this.dataSource.data = drivers;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+    );
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
