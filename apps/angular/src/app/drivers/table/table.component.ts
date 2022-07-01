@@ -87,7 +87,7 @@ import { Subscription } from 'rxjs';
 
       <mat-paginator
         class="mat-elevation-z8"
-        pageSize="20"
+        pageSize="10"
         [pageSizeOptions]="[10, 20, 50, 100]"
         showFirstLastButtons="true"
       ></mat-paginator>
@@ -102,7 +102,13 @@ import { Subscription } from 'rxjs';
   ],
 })
 export class TableComponent implements AfterViewInit, OnDestroy {
-  constructor(private readonly driverStore: DriverStore) {}
+  constructor(private readonly driverStore: DriverStore) {
+    this.subscriptions.add(
+      this.driverStore.watchDrivers().subscribe((drivers) => {
+        this.dataSource.data = drivers;
+      })
+    );
+  }
 
   readonly dataSource: MatTableDataSource<Driver> =
     new MatTableDataSource<Driver>();
@@ -123,13 +129,8 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
-    this.subscriptions.add(
-      this.driverStore.watchDrivers().subscribe((drivers) => {
-        this.dataSource.data = drivers;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy(): void {

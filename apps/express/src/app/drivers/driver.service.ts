@@ -3,6 +3,9 @@ import { Driver, Gender, Language } from '@spa-nodejs/model';
 import * as randopeep from 'randopeep';
 import * as config from '../../../config.json';
 
+/**
+ * Driver service generates driver data.
+ */
 export class DriverService {
   private static instance: DriverService;
 

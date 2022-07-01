@@ -108,7 +108,7 @@ export class MapComponent implements OnDestroy {
       });
       return of(markers);
     }),
-    filter((data) => !this.pause.value),
+    filter(() => !this.pause.value),
     takeUntil(this.destroyed),
     shareReplay(1)
   );

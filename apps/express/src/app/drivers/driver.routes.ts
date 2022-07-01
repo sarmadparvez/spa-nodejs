@@ -1,4 +1,4 @@
-/* Driver Endpoints */
+/* Drivers Endpoints */
 
 import * as express from 'express';
 import { DriverService } from './driver.service';

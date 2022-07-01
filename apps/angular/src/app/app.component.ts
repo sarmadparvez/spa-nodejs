@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { ConfigService } from './config.service';
+import { combineLatest, Subscription } from 'rxjs';
+import { DriverStore } from './drivers/driver-store';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +12,20 @@ import { Component } from '@angular/core';
 
       <!--Navigation items-->
       <div class="toolbar__navigation">
-        <a mat-button [routerLink]="''"> Table </a>
-        <a mat-button [routerLink]="'/map'"> Map </a>
-        <a mat-button [routerLink]="'/json'"> JSON </a>
+        <a
+          mat-button
+          [routerLink]="''"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Table
+        </a>
+        <a mat-button [routerLink]="'/map'" routerLinkActive="active-link">
+          Map
+        </a>
+        <a mat-button [routerLink]="'/json'" routerLinkActive="active-link">
+          JSON
+        </a>
       </div>
 
       <span class="spacer"></span>
@@ -26,7 +40,7 @@ import { Component } from '@angular/core';
       color="primary"
       mode="determinate"
       diameter="50"
-      [value]="10"
+      [value]="progress"
     >
     </mat-progress-spinner>
 
@@ -48,9 +62,54 @@ import { Component } from '@angular/core';
         right: 2%;
         top: 90px;
       }
+      .active-link {
+        color: black;
+        background-color: floralwhite;
+      }
     `,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
+  readonly subscriptions = new Subscription();
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly driverStore: DriverStore
+  ) {
+    // When the update interval is fetched, and the drivers are updated
+    // calculate the spinner progress
+    this.subscriptions.add(
+      combineLatest([
+        this.configService.updateInterval,
+        this.driverStore.watchDriversUpdate(),
+      ]).subscribe(([interval, updated]) => {
+        this.progress = 0;
+        const startTime = new Date().getTime();
+        const endTime = startTime + interval;
+        this.calculateProgress(startTime, endTime);
+      })
+    );
+  }
+
   readonly title = 'Web App';
+  progress = 0;
+
+  calculateProgress(startTime: number, endTime: number) {
+    const now = new Date().getTime();
+    const timePassed = now - startTime;
+    const totalTime = endTime - startTime;
+    const percentage = Math.ceil((timePassed / totalTime) * 100);
+
+    // add adjustment of 5% to compensate for the time wasted in progress calculation.
+    this.progress = percentage + 5;
+
+    if (now < endTime && this.progress < 100) {
+      setTimeout(() => {
+        this.calculateProgress(startTime, endTime);
+      }, 100);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 }

@@ -10,6 +10,8 @@ import { Driver } from '@spa-nodejs/model';
   imports: [CommonModule],
   template: `
     <div class="page-container">
+      <h1>Drivers</h1>
+      <p>The data (GPS coordinates) is refreshed as per the set interval.</p>
       <pre>{{ driverData | async | json }}</pre>
     </div>
   `,

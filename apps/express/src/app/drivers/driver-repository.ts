@@ -2,6 +2,9 @@ import { Driver } from '@spa-nodejs/model';
 import * as fs from 'fs';
 import * as config from './../../../config.json';
 
+/**
+ * Repository for driver. Read and writes driver data.
+ */
 export class DriverRepository {
   public async get(): Promise<Driver[]> {
     const data = await fs.promises.readFile(config.dataPath, 'utf8');
