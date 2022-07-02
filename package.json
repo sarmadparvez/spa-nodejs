@@ -6,7 +6,6 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "postinstall": "ngcc --properties es2020 browser module main",
     "heroku-postbuild": "nx build $PROJECT_NAME --prod"
   },
   "private": true,
