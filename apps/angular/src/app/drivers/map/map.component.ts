@@ -33,7 +33,7 @@ interface Marker {
   imports: [CommonModule, GoogleMapsModule],
   template: `
     <div class="page-container">
-      <p>
+      <p class="map-note">
         The drivers are shown with car icon on the map. Click on an icon to see
         the driver details. The data on the map is refreshed as per the set
         interval. When the icon info window is open, data updates are
@@ -73,6 +73,9 @@ interface Marker {
     `
       .map-container {
         margin-left: 8%;
+      }
+      .map-note {
+        margin-right: 45px;
       }
     `,
   ],

@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   template: `
     <div class="page-container">
       <h1>Drivers</h1>
-      <p>
+      <p class="table-note">
         The data (GPS coordinates column) is refreshed as per the set interval.
         You can also sort the data in the table by clicking on the column header
         by name, gender or km driven columns.
@@ -97,6 +97,9 @@ import { Subscription } from 'rxjs';
     `
       table {
         width: 100%;
+      }
+      .table-note {
+        margin-right: 45px;
       }
     `,
   ],
