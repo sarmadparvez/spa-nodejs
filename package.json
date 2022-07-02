@@ -6,7 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "postinstall": "ngcc --properties es2020 browser module main"
+    "heroku-postbuild": "nx build $PROJECT_NAME --prod"
   },
   "private": true,
   "devDependencies": {
@@ -61,5 +61,8 @@
     "socket.io-client": "^4.5.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
+  },
+  "engines": {
+    "node": "17.7.2"
   }
 }

@@ -1,0 +1,14 @@
+node_modules
+apps
+coverage
+docker
+libs
+tools
+Dockerfile*
+README.md
+LICENSE
+.vscode
+.dockerignore
+.firebase
+.git
+.gitignore

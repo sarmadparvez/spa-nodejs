@@ -36,12 +36,53 @@ socket server to broadcast event to all connected clients whenever data is updat
   <li>Application architecture design</li>
 </ul>
 
+##Demo
+Please visit [this](https://angular-drivers.web.app) for the project demo.
+
+Note: When you will access the demo, the initial data load my take upto 20 seconds. This is because the backend express app is currently deployed on heroku which has a limitation that the service goes to sleep when not
+in use for 30 minutes. Accessing the service wakes it up however the first request can take a longer time because
+service is waking up, but further requests will be served immediately. If you run the applications locally, then you
+will not face this limitation.
+
 ## Running the Applications
+
+### Docker Containers
+
+Both applications (Angular, Express) are dockerized and images are publicly available on [dockerhub](https://hub.docker.com).
+
+You must have docker installed to be able to run the applications in docker containers. Alternatively
+you can also run the applications natively on your host operating system by following the instructions
+in the next section (Development Server).
+
+Simply run following command to pull the docker images, and run the Angular and Express applications in
+docker containers.
+
+`docker-compose up -d`
+
+After the successful execution of above command:
+
+To access the Angular app navigate to http://localhost:4200
+
+To access the Express API make a GET call to http://localhost:3333/api/drivers
+
+### Docker Images
+
+To build the docker images locally (e.g, after updating code) run the following commands:
+
+Angular: `docker build -t angular-drivers -f angular.Dockerfile .`
+
+Express: `docker build -t drivers-express -f express.Dockerfile .`
+
+Once the images are built you can run the applications in containers:
+
+Angular: `docker run -d -it -p 4200:80/tcp --name angular-drivers angular-drivers`
+
+Express: `docker run -d -it -p 3333:3333/tcp --name drivers-express drivers-express`
+
+### Development Server
 
 This project was generated using [Nx](https://nx.dev). As a pre-requisite to run and build the applications in this monorepo you will need to install Nx cli
 `npm install -g nx`
-
-### Development Server
 
 Before running the individual applications on the development server run `npm install`
 to install the dependencies. As it is a monorepo and there is just one `package.json` , it will install the dependencies for all
@@ -49,7 +90,7 @@ applications.
 
 #### Angular
 
-Run `nx serve angular` for a dev server on port 4200. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `nx serve angular` for a dev server on port 4200. Navigate to http://localhost:4200. The app will automatically reload if you change any of the source files.
 
 #### Express
 
@@ -64,9 +105,9 @@ The following REST API(s) are available:
 
 Run `nx build angular` to build the angular project.
 
-Run `nx build express` to build the angular project. Use the `--prod` flag for a production build.
+Run `nx build express` to build the angular project.
 
-The build artifacts will be stored in the `dist/` directory.
+Use the `--prod` flag for a production build. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
