@@ -5,7 +5,8 @@ location is updated as per the set interval.
 
 This project is a monorepo, and it contains two applications which are explained below.
 
-##Angular
+## Angular
+
 The frontend application shows visualizations of the real-time driver data i.e., in Table, Google Map, and JSON. The application is developed with Angular v14 and is available
 in `apps/angular` directory. Overall this application demonstrates the following:
 
@@ -20,7 +21,8 @@ in `apps/angular` directory. Overall this application demonstrates the following
   <li>Google Maps integration</li>
 </ul>
 
-##Express
+## Express
+
 The backend application generates random driver data. The driver [model](https://github.com/sarmadparvez/spa-nodejs/blob/main/libs/model/src/lib/driver.ts) is available
 in the shared library which is used by both backend and frontend. The driver location is
 randomly updated as per the set interval in [config.json](https://github.com/sarmadparvez/spa-nodejs/blob/main/apps/express/config.json) file.
@@ -36,7 +38,8 @@ socket server to broadcast event to all connected clients whenever data is updat
   <li>Application architecture design</li>
 </ul>
 
-##Demo
+## Demo
+
 Please visit [this](https://angular-drivers.web.app) for the project demo.
 
 Note: When you will access the demo, the initial data load my take upto 20 seconds. This is because the backend express app is currently deployed on heroku which has a limitation that the service goes to sleep when not
