@@ -23,7 +23,8 @@ in `apps/angular` directory. Overall this application demonstrates the following
 
 ## Express
 
-The backend application generates random driver data. The driver [model](https://github.com/sarmadparvez/spa-nodejs/blob/main/libs/model/src/lib/driver.ts) is available
+The backend application is developed with Express.js using TypeScript and is available
+in `apps/express` directory. The application generates random driver data. The driver [model](https://github.com/sarmadparvez/spa-nodejs/blob/main/libs/model/src/lib/driver.ts) is available
 in the shared library which is used by both backend and frontend. The driver location is
 randomly updated as per the set interval in [config.json](https://github.com/sarmadparvez/spa-nodejs/blob/main/apps/express/config.json) file.
 
