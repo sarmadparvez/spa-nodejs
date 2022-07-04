@@ -15,7 +15,6 @@ import {
   of,
   ReplaySubject,
   shareReplay,
-  Subscription,
   switchMap,
   takeUntil,
 } from 'rxjs';
@@ -86,7 +85,6 @@ export class MapComponent implements OnDestroy {
     private readonly driverStore: DriverStore
   ) {}
 
-  readonly subscriptions = new Subscription();
   readonly destroyed = new ReplaySubject<void>(1);
   readonly zoom = 1.15;
   readonly center: google.maps.LatLngLiteral = { lat: 19, lng: 12 };
